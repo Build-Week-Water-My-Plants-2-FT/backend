@@ -1,14 +1,39 @@
-
-exports.seed = function (knex) {
+exports.seed = function(knex) {
   // Deletes ALL existing entries
-  return knex('plants').del()
+  return knex('plants').truncate()
     .then(function () {
       // Inserts seed entries
-      return knex('users').insert([
-        { nickname: 'Test Plant1', species: 'test species',  h2oFrequency: '3ml Every Day'},
-        { nickname: 'Test Plant2', species: 'test species2',  h2oFrequency: '3ml Every Other Day'},
-        { nickname: 'Test Plant3', species: 'test species3',  h2oFrequency: '3ml Every Hour'},
-        { nickname: 'Test Plant4', species: 'test species4',  h2oFrequency: ' 3ml Every Minute'},
+      return knex('plants').insert([
+        {
+          nickname: 'Bamboo',
+          species: 'Bambusoideae',
+          h2o_frequency: '3 times per week',
+          user_id: 1
+        },
+        {
+          nickname: 'Daisy',
+          species: 'Bellis Perennis',
+          h2o_frequency: '2 times per week',
+          user_id: 1
+        },
+        {
+          nickname: 'Sunflower',
+          species: 'Helianthus Annuus',
+          h2o_frequency: '1 time per week',
+          user_id: 1
+        },
+        {
+          nickname: 'Tulip',
+          species: 'Tulipa',
+          h2o_frequency: '1 time per week',
+          user_id: 1
+        },
+        {
+          nickname: 'Lavender',
+          species: 'Lavandula',
+          h2o_frequency: '2 times per week',
+          user_id: 1
+        },
       ]);
     });
 };

@@ -1,22 +1,36 @@
-exports.up = async (knex) => {
-    await knex.schema
-      .createTable('users', (users) => {
-        users.increments('user_id')
-        users.string('username', 200).notNullable()
-        users.string('password', 200).notNullable()
-        users.integer('phoneNumber', 11).notNullable()
-        users.timestamps(false, true)
-      })
-      .createTable('plants', (plants) => {
-          plants.increments('plant_id')
-          plants.string('nickname', 280).notNullable()
-          plants.string('species', 280).notNullable()
-          plants.string('h2oFrequency', 200).notNullable()
-          plants.bytea('image', 128)
-      })
-  }
-  
-  exports.down = async (knex) => {
-    await knex.schema.dropTableIfExists('users')
-    await knex.schema.dropTableIfExists('plants')
-  }
+exports.up = function(knex) {
+  return knex.schema
+    .createTable('users', tbl => {
+      tbl.increments();
+      tbl.string('username', 160)
+        .unique()
+        .notNullable()
+        .index();
+      tbl.string('password', 256)
+        .notNullable();
+      tbl.string('phone_number', 15)
+        .notNullable();
+    })
+    .createTable('plants', tbl => {
+      tbl.increments();
+      tbl.string('nickname', 256)
+        .notNullable();
+      tbl.string('species', 256)
+        .notNullable();
+      tbl.string('h2o_frequency', 120)
+        .notNullable();
+      tbl.string('img_url', 999);
+      tbl.integer('user_id')
+        .unsigned()
+        .notNullable()
+        .references('users.id')
+        .onUpdate('CASCADE')
+        .onDelete('CASCADE');
+    })
+};
+
+exports.down = function(knex) {
+  return knex.schema
+    .dropTableIfExists('plants')
+    .dropTableIfExists('users')
+};
