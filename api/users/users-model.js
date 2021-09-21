@@ -1,16 +1,5 @@
 const db = require('../../data/db-config')
 
-module.exports = {
-  find,
-  findByID,
-  findPlantsByUserID,
-  add,
-  update,
-  remove,
-  login
-}
-
-
 function find() {
   return db('users')
     .select(
@@ -20,7 +9,6 @@ function find() {
     )
     .orderBy('users.id')
 }
-
 
 function findByID(id) {
   return db('users')
@@ -32,7 +20,6 @@ function findByID(id) {
     .where({'id': id})
     .first()
 }
-
 
 function findPlantsByUserID(id) {
   return db('plants')
@@ -49,7 +36,6 @@ function findPlantsByUserID(id) {
     .orderBy('plants.id')
 }
 
-
 function add(user) {
   return db('users')
     .insert(user, 'id')
@@ -57,7 +43,6 @@ function add(user) {
       return findByID(id[0])
     })
 }
-
 
 function update(id, changes) {
   return db('users')
@@ -68,13 +53,11 @@ function update(id, changes) {
     })
 }
 
-
 function remove(id) {
   return db('users')
     .where({'id': id})
     .delete()
 }
-
 
 function login(username) {
   return db('users')
@@ -86,4 +69,14 @@ function login(username) {
     )
     .where({'username': username})
     .first()
+}
+
+module.exports = {
+  find,
+  findByID,
+  findPlantsByUserID,
+  add,
+  update,
+  remove,
+  login
 }

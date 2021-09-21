@@ -1,13 +1,8 @@
 const router = require('express').Router();
-
 const Users = require('../users/users-model.js');
-
 const Plants = require('../plants/plants-model.js');
-
 const jwt = require('jsonwebtoken');
-
 const bcrypt = require('bcryptjs');
-
 const constants = require('../config/index.js');
 
 function createToken(user){
@@ -33,13 +28,12 @@ router.post('/register', validateNewUser, (req, res) => {
   }
   Users.add(newUser)
     .then(user => {
-      console.log(user)
       const token = createToken(user)
       res.status(201).json({new_user: user, token})
     })
     .catch(err => {
       console.log(err)
-      res.status(500).json({message: `An Error occurred when attempting to register ${req.body.username}`})
+      res.status(500).json({message: `An Error occurred while attempting to register ${req.body.username}`})
     });
 });
 
@@ -47,7 +41,6 @@ router.post('/register', validateNewUser, (req, res) => {
 router.post('/login', validateLogin, (req, res) => {
   Users.login(req.body.username)
     .then(user => {
-      console.log(user)
       if (Object.keys(user).length === 0) {
         res.status(401).json({message: 'Invalid Username'})
       } else if (Object.keys(user).length > 0 && bcrypt.compareSync(req.body.password, user.password)){
@@ -64,7 +57,7 @@ router.post('/login', validateLogin, (req, res) => {
     })
     .catch(err => {
       console.log(err);
-      res.status(500).json({message: 'An Error occurred while attempting to log you in'});
+      res.status(500).json({message: 'An Error occurred while attempting to login'});
     });
 });
 
@@ -74,10 +67,11 @@ router.get('/plants', (req, res) => {
     .then(list => res.status(200).json(list))
     .catch(err => {
       console.log(err)
-      res.status(500).json({message: 'An Error occurred when retrieving a list of Plants'})
+      res.status(500).json({message: 'An Error occurred while retrieving plants'})
     })
 })
 
+// MIDDLEWARE 
 
 function validateNewUser (req, res, next){
   if(Object.keys(req.body).length === 0){

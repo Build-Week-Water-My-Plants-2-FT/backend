@@ -8,7 +8,7 @@ router.get('/:id', validateID, (req, res) => {
     .then(plant => res.status(200).json(plant))
     .catch(err => {
       console.log(err)
-      res.status(500).json({message: `An Error occurred when retrieving Plant with ID ${req.params.id}`})
+      res.status(500).json({message: `An Error occurred when retrieving Plant ${req.params.id}`})
     })
 })
 
@@ -18,17 +18,17 @@ router.put('/:id', validateID, validatePlant, (req, res) => {
     .then(updated => res.status(201).json(updated))
     .catch( err => {
       console.log(err)
-      res.status(500).json({message: `An Error occurred when attempting to Update Plant with ID ${req.params.id}`})
+      res.status(500).json({message: `An Error occurred when attempting to Update Plant ${req.params.id}`})
     })
 })
 
 
 router.delete('/:id', validateID, (req, res) => {
   Plants.remove(req.params.id)
-    .then(() => res.status(200).json({message: `Plant with ID ${req.params.id} has been deleted`}))
+    .then(() => res.status(200).json({message: `Plant ${req.params.id} has been deleted`}))
     .catch(err => {
       console.log(err);
-      res.status(500).json({message: `An Error occurred when attempting to Delete Plant with ID ${req.params.id}`});
+      res.status(500).json({message: `An Error occurred when attempting to Delete Plant ${req.params.id}`});
     });
 })
 
@@ -39,7 +39,7 @@ function validateID (req, res, next){
   Plants.findByID(req.params.id)
     .then(user => {
       if (!user) {
-        res.status(400).json({message: 'Invalid Plant ID'});
+        res.status(400).json({message: 'Plant ID Invalid'});
       } else {
         next();
       }
@@ -50,7 +50,7 @@ function validatePlant (req, res, next){
   if(Object.keys(req.body).length === 0){
     res.status(401).json({message: 'No User Data provided'});
   } else if(!req.body.nickname || !req.body.species || !req.body.h2o_frequency){
-    res.status(401).json({message: 'Nickname, Species, and H20 Frequency are ALL REQUIRED!'});
+    res.status(401).json({message: 'Nickname, Species, and H20 Frequency are required.'});
   } else {
     next();
   }
