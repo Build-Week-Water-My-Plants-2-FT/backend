@@ -12,13 +12,10 @@ server.use(helmet());
 server.use(express.json());
 server.use(cors());
 
-
 server.use('/api/users', authMiddleware, usersRouter)
-
 
 server.use('/api/plants', authMiddleware, plantsRouter)
 
 server.use('/api/auth', authRouter)
-
 
 module.exports = server;

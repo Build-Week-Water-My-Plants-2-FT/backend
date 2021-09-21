@@ -6,7 +6,7 @@ Water My Plants
 
 # Base URL for Deployed API
 
-https://water-my-plants-buildweek.herokuapp.com/api
+https://water-plants-build.herokuapp.com/api
 
 # Endpoints
 | Request | URL               | Description |

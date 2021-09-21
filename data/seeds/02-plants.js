@@ -5,14 +5,14 @@ exports.seed = function(knex) {
       // Inserts seed entries
       return knex('plants').insert([
         {
-          nickname: 'Bamboo',
-          species: 'Bambusoideae',
-          h2o_frequency: '3 times per week',
+          nickname: 'Daisy',
+          species: 'Bellis Perennis',
+          h2o_frequency: '2 times per week',
           user_id: 1
         },
         {
-          nickname: 'Daisy',
-          species: 'Bellis Perennis',
+          nickname: 'Lavender',
+          species: 'Lavandula',
           h2o_frequency: '2 times per week',
           user_id: 1
         },
@@ -29,9 +29,9 @@ exports.seed = function(knex) {
           user_id: 1
         },
         {
-          nickname: 'Lavender',
-          species: 'Lavandula',
-          h2o_frequency: '2 times per week',
+          nickname: 'Bamboo',
+          species: 'Bambusoideae',
+          h2o_frequency: '3 times per week',
           user_id: 1
         },
       ]);
